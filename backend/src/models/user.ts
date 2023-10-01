@@ -1,5 +1,9 @@
 import mongoose, { Schema, Document, Model, Types } from 'mongoose';
 
+function generateUserId() {
+  return new Types.ObjectId();
+}
+
 interface IUser extends Document {
   userId: mongoose.Schema.Types.ObjectId;
   username: string;
@@ -13,8 +17,10 @@ interface IUser extends Document {
 const userSchema: Schema<IUser> = new Schema<IUser>({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    unique: true
+    //required: true,
+    unique: true,
+    default: generateUserId,
+    
   },
   username: {
     type: String,
@@ -47,7 +53,8 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
   chatRooms: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GroupChat',
-  }],
+  }]
+  ,
 });
 
 // Create a User model from the schema

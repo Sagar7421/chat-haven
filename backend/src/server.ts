@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import authRouter from './routes/authenticationRoutes';
 
 const app = express();
 
@@ -20,6 +21,8 @@ mongoose.connection.on('error', (err) => {
   console.error(`MongoDB connection error: ${err}`);
 });
 // Define your routes here
+
+app.use('/auth', authRouter);
 
 // Start the server
 const port: number = process.env.PORT ? parseInt(process.env.PORT) : 3001;

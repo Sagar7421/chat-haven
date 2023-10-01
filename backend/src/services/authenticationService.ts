@@ -13,6 +13,11 @@ const signup = async (req: Request, res: Response): Promise<Response> => {
       return res.status(400).json({ message: 'Email is already registered.' });
     }
 
+    if (password == null || email == null || username == null){
+      return res.status(400).json({ message: 'Something is missing' });
+
+    }
+
     // Hash the password before saving it to the database
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -37,6 +42,10 @@ const signup = async (req: Request, res: Response): Promise<Response> => {
 const login = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email, password } = req.body;
+
+    if (email == null || password == null){
+      return res.status(400).json({message: "Something is missing"});
+    }
 
     // Find the user by email
     const user = await User.findOne({ email });
