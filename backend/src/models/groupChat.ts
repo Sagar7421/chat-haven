@@ -1,14 +1,24 @@
-const mongoose = require('mongoose');
+import mongoose, { Schema, Document, Model, Types } from 'mongoose';
 
-const groupChatSchema = new mongoose.Schema({
+interface IGroupChat extends Document {
+  groupChatId: mongoose.Schema.Types.ObjectId;
+  admin_id: mongoose.Schema.Types.ObjectId;
+  participant_ids: mongoose.Schema.Types.ObjectId[];
+  created_at: Date;
+  updated_at: Date;
+  message_count: number;
+  description?: string;
+}
+
+const groupChatSchema: Schema<IGroupChat> = new Schema<IGroupChat>({
   groupChatId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     unique: true,
   },
-  admin_id:{
+  admin_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref : 'User',
+    ref: 'User',
   },
   participant_ids: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -33,6 +43,6 @@ const groupChatSchema = new mongoose.Schema({
   },
 });
 
-const GroupChat = mongoose.model('GroupChat', groupChatSchema);
+const GroupChat: Model<IGroupChat> = mongoose.model<IGroupChat>('GroupChat', groupChatSchema);
 
-module.exports = GroupChat;
+export default GroupChat;
