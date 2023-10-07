@@ -25,7 +25,7 @@ mongoose.connection.on('error', (err) => {
 app.use('/auth', authRouter);
 
 // Start the server
-const port: number = process.env.PORT ? parseInt(process.env.PORT) : 3001;
+const port: number = process.env.PORT ? parseInt(process.env.PORT) : 5001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
