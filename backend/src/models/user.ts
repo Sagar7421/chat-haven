@@ -9,15 +9,15 @@ interface IUser extends Document {
   username: string;
   email: string;
   password: string;
-  status?: string;
+  status: string;
   friends: Types.ObjectId[];
   chatRooms: Types.ObjectId[];
+  chats: Types.ObjectId[];
 }
 
 const userSchema: Schema<IUser> = new Schema<IUser>({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    //required: true,
     unique: true,
     default: generateUserId,
     
@@ -53,6 +53,10 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
   chatRooms: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GroupChat',
+  }],
+  chats: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Chat",
   }]
   ,
 });

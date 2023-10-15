@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import authRouter from './routes/authenticationRoutes';
+import userRouter from './routes/userRoutes';
+import chatRouter from './routes/chatRoutes';
 
 const app = express();
 
@@ -23,6 +25,9 @@ mongoose.connection.on('error', (err) => {
 // Define your routes here
 
 app.use('/auth', authRouter);
+app.use('/user', userRouter);
+app.use('/chat', chatRouter)
+
 
 // Start the server
 const port: number = process.env.PORT ? parseInt(process.env.PORT) : 5001;

@@ -1,7 +1,9 @@
 import React, { useState, FormEvent, ChangeEvent} from 'react';
 import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { createUser, loginUser } from '../api/authentication';
-/*import { useHistory } from 'react-router-dom';*/
+import { useNavigate } from 'react-router-dom';
+import { USER_LOGIN } from '../reducers/authSlice';
+import { useAppDispatch } from '../hooks';
 
 interface FormData {
   username: string;
@@ -11,6 +13,8 @@ interface FormData {
 
 
 const LandingPage: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   // const history = useHistory(); 
   const [isLogin, setIsLogin] = useState(true); // State to track login/signup view
 
@@ -37,12 +41,13 @@ const LandingPage: React.FC = () => {
         // Handle login
         const response = await loginUser(formData);
         console.log('User logged in successfully:', response.data);
-        // Redirect to the dashboard or perform other actions as needed
+        dispatch(USER_LOGIN(response.data.user._id));
       } else {
         // Handle registration
         const response = await createUser(formData);
         console.log('User registered successfully:', response.data);
-        // Redirect to the dashboard or perform other actions as needed
+        toggleView();
+        
       }
     } catch (error) {
         if (error instanceof Error ){
