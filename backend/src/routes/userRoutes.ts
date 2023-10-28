@@ -4,8 +4,10 @@ import { loginCheck } from '../middleware/auth';
 
 const userRouter: Router = express.Router();
 
-userRouter.get("/", loginCheck, getAllUsers);
-userRouter.get("/:user_id", loginCheck, getUserById);
-userRouter.get("/getUserList/:callerUserId", loginCheck, getAllUserExceptCaller);
+// TODO: Add logincheck in the mix
+
+userRouter.get("/users", getAllUsers);
+userRouter.get("/:user_id", getUserById);
+userRouter.get("/getUserList/:callerUserId", getAllUserExceptCaller);
 
 export default userRouter;

@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import ErrorPage from './components/ErrorPage';
 import { AuthInterface } from './reducers/authSlice';
 import { useAppSelector } from './hooks';
+import "./App.css"
 
 function App() {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);

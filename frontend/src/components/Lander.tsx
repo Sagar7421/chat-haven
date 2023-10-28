@@ -41,7 +41,7 @@ const LandingPage: React.FC = () => {
         // Handle login
         const response = await loginUser(formData);
         console.log('User logged in successfully:', response.data);
-        dispatch(USER_LOGIN(response.data.user._id));
+        dispatch(USER_LOGIN({id: response.data.user.id}));
       } else {
         // Handle registration
         const response = await createUser(formData);
@@ -59,7 +59,7 @@ const LandingPage: React.FC = () => {
     }
   };
 
-  return (
+  return (       
     <Container>
       <Row className="mt-5">
         <Col md={6}>
