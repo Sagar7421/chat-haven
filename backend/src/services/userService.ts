@@ -14,6 +14,9 @@ const getAllUsers = async (req: Request, res: Response) => {
 
 const getUserById = async (req: Request, res: Response) => {
 
+    console.log("Got user request!");
+    console.log(req.params);
+
     try{
         const {user_id} = req.params;
 

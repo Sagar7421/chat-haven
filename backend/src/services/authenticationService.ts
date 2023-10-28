@@ -69,12 +69,12 @@ const login = async (req: Request, res: Response): Promise<Response> => {
     // You would typically use a package like `jsonwebtoken` for this purpose
 
     const token = jwt.sign(
-      { _id: user.userId, role: user.username },
+      { id: user._id, role: user.username },
       JWT_SECRET
     );
     const encode = jwt.verify(token, JWT_SECRET);
     console.log("Login Successfull");
-    
+
     return res.status(200).json({ 
       message: 'Login successful.',
       token: token,
