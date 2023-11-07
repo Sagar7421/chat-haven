@@ -16,3 +16,11 @@ export interface activeUser{
 export interface userListInterface{
     usersList: activeUser[]
 }
+
+export interface chat1{
+    participents: string[],
+    messages: string[],
+    lastMessage: string,
+    isGroupChat: boolean,
+    chatName: string,
+}

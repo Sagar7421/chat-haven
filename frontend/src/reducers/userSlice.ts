@@ -56,4 +56,5 @@ export const {LOAD_USER_LIST} = allUsersSlice.actions;
 //export default authSlice.reducer;
 
 
+// Use a singe socket to perform everything
 

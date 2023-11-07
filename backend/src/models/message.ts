@@ -20,7 +20,6 @@ const messageSchema: Schema<IMessage> = new Schema<IMessage>({
   },
   isGroupChatMessage: {
     type: Boolean,
-    required: true,
   },
   timestamp: {
     type: Date,

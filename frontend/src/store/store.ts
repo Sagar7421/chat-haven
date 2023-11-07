@@ -2,14 +2,17 @@ import { configureStore } from '@reduxjs/toolkit'
 // import counterReducer from './counterReducer'
 import { authSlice } from '../reducers/authSlice'
 import { userSlice, allUsersSlice } from '../reducers/userSlice'
+import { chatSlice } from '../reducers/chatSlice'
+import socketMiddleware from '../middlewares/socketMiddleware'
 
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     user: userSlice.reducer,
-    allUsers: allUsersSlice.reducer
-
+    allUsers: allUsersSlice.reducer,
+    chatSlice: chatSlice.reducer
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(socketMiddleware)
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
