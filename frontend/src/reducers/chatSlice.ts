@@ -1,25 +1,23 @@
 import {createSlice } from '@reduxjs/toolkit'
-import { chat1 } from '../interfaces/interfaces'
+import { chat1, chatListInterface } from '../interfaces/interfaces'
+import { getChatList } from './chatActions';
 
-/*export const chatListSlice = createSlice({
+export const chatListSlice = createSlice({
     name: 'chatList',
     initialState: {
+        chats: [],
+    } as chatListInterface,
+    reducers: {
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getChatList.fulfilled, (state, action) => {
+            for (const data of action.payload) {
+                state.chats.push({chatUserName: data.username, chatUserId: data.user_id, chatId: data.chat_id});
+            }
+        });
 
     },
-    reducers: {
-
-    }
 })
-
-export const groupChatListSlice = createSlice({
-    name: 'groupChatList',
-    initialState: {
-
-    },
-    reducers: {
-
-    }
-}) */
 
 
 export const chatSlice = createSlice({

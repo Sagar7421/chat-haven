@@ -57,5 +57,29 @@ const getAllUserExceptCaller = async (req:Request, res: Response) => {
     }
 };
 
+const getUserNameById = async (req: Request, res: Response) => {
+    try{
+        const {userId} = req.params;
 
-export {getAllUsers, getUserById, getAllUserExceptCaller};
+        if (!userId){
+            return res.status(401).json({message: "Need to provide user id"});
+        }
+
+        const user = await User.findById(userId);
+
+        if (user){
+            return res.status(200).json({userName: user.username}); 
+        }
+        else{
+            return res.status(404).json({message: "User Not Found"});
+        }
+        
+
+    } catch (error){
+        console.log("Error in getUserNameById: ", error);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
+}
+
+
+export {getAllUsers, getUserById, getAllUserExceptCaller, getUserNameById};

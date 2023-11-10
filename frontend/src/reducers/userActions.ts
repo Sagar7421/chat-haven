@@ -1,7 +1,7 @@
 import { getUserById } from "../api/userApi";
-import { LOAD_USER } from "../reducers/userSlice";
+import { LOAD_USER } from "./userSlice";
 
-export const fetchUser = (id: String) => {
+export const fetchUser = (id: string) => {
     return async (dispatch: any) => {
       try {
         const userData = await getUserById(id);

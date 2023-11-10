@@ -24,3 +24,13 @@ export interface chat1{
     isGroupChat: boolean,
     chatName: string,
 }
+
+export interface chatInfoInterface{
+    chatUserName: string,
+    chatId: string,
+    chatUserId: string,
+}
+
+export interface chatListInterface{
+    chats: chatInfoInterface[],
+}
