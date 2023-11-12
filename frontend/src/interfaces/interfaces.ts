@@ -8,7 +8,6 @@ export interface UserInterface {
     chats: string[]
 }
 
-
 export interface activeUser{
     username: string
     userId: string
@@ -17,9 +16,16 @@ export interface userListInterface{
     usersList: activeUser[]
 }
 
-export interface chat1{
+export interface messagesInterface{
+    sender_id: string
+    content: string
+    message_id: string
+    timestamp: Date
+}
+
+export interface currentChatInterface{
     participents: string[],
-    messages: string[],
+    messages: messagesInterface[],
     lastMessage: string,
     isGroupChat: boolean,
     chatName: string,

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { getChatList } from '../reducers/chatActions';
+import { getChatList, initializeChat } from '../reducers/chatActions';
+import { ListGroup } from 'react-bootstrap';
 
 const UserArea: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -9,23 +10,26 @@ const UserArea: React.FC = () => {
   const chatData = useAppSelector((state) => state.chatList);
 
   useEffect(() => {
-    
-    dispatch(getChatList({chatids: user.chats, currentUserId: user.userId}));
+
+    dispatch(getChatList({ chatids: user.chats, currentUserId: user.userId }));
 
   }, [dispatch, user]);
 
+  const handleChatClick = (chatId: string) => {
+    dispatch(initializeChat({ chatid: chatId, currentUserId: user.userId }));
+  };
+
+
   return (
-    <div className="container">
-      <h2> This is user area</h2>
-      <div className="card-container">
+    <div>
+      <h2>Chats</h2>
+      <ListGroup>
         {chatData.chats.map((chat, index) => (
-          <div className="card" key={index}>
-            <h2>Username data {chat.chatUserName}</h2>
-            <h2>Chat ID data {chat.chatId}</h2>
-            <h3>Chat User ID data {chat.chatUserId}</h3>
-          </div>
+          <ListGroup.Item key={index} onClick={() => handleChatClick(chat.chatId)}>
+            <div>Username data {chat.chatUserName}</div>
+          </ListGroup.Item>
         ))}
-      </div>
+      </ListGroup>
     </div>
   );
 };

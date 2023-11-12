@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import Chat from '../models/chat';
 import User from '../models/user';
-import mongoose from 'mongoose';
-
+import mongoose, { Mongoose } from 'mongoose';
+import { resolveMessages } from './messageService';
 
 // Create a new chat
 // Tested and Working
@@ -26,10 +26,13 @@ const createChat = async (req: Request, res: Response) => {
 };
 
 
-// Retrieve a chat by ID
+// Retrieve a chat by ID and resolve messages to desired o/p
 const getChatById = async (req: Request, res: Response) => {
   try {
-    const { chatId } = req.params;
+    let chatId = req.body.chat_id;
+    const currentUser = req.body.currentUser;
+
+    chatId = new mongoose.Types.ObjectId(chatId);
 
     const chat = await Chat.findById(chatId);
 
@@ -37,7 +40,13 @@ const getChatById = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Chat not found' });
     }
 
-    return res.json(chat);
+    const messageids = chat.messages;
+    const messagesData = await resolveMessages(messageids);
+
+    const returnData = {participents: chat.participants_ids, messages: messagesData, lastMessage: "", isGroupChat: false};
+
+    return res.status(200).json(returnData);
+
   } catch (error) {
     console.error('Error fetching chat:', error);
     return res.status(500).json({ message: 'Internal server error' });
@@ -60,7 +69,12 @@ const getChatsByIds = async (req: Request, res: Response) => {
   }
 };
 
-
+/**
+ *  Function to handle frontend request that would return list of chats with whom current user has chatted in past
+ * @param req 
+ * @param res 
+ * @returns 
+ */
 const getChatsUserNames = async(req: Request, res: Response) => {
   try{
 

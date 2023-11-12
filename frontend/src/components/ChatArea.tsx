@@ -1,18 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { initializeChat } from '../reducers/chatActions';
 
-interface ChatAreaProps {
-  user: any; // Define your User type
-}
+const ChatArea: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const chatOnTop = useAppSelector((state) => state.chatList.chats.at(0)?.chatId);
+  const userid = useAppSelector((state) => state.user.userId);
+  const currentChat = useAppSelector((state) => state.chatSlice);
 
-const ChatArea: React.FC<ChatAreaProps> = ({ user }) => {
+  useEffect(() => {
+    if (chatOnTop){
+      dispatch(initializeChat({chatid: chatOnTop, currentUserId: userid}));
+    }
+    
+    
+  }, [dispatch, chatOnTop]);
+
+
   return (
     <div className="container">
-
-          <div className="card">
-            <h2> This is chat area </h2>
-            {/* Your chat area content for the selected user */}
-      </div>
+    <h2> Chat-name {currentChat.chatName}</h2>
+    <div className="card-container">
+      {currentChat.messages.map((msg, index) => (
+        <div className="card" key={index}>
+          <h3>Message content: {msg.content}</h3>
+          <h3>Message sender:  {msg.sender_id}</h3>
+          <h3>message id: {msg.message_id}</h3>
+        </div>
+      ))}
     </div>
+  </div>
   );
 };
 

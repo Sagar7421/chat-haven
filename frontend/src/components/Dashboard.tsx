@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div className="col-md-6">
             <div className="chat-area">
-            <ChatArea user={null} />
+            <ChatArea />
             </div>
           </div>
           <div className="col-md-3">

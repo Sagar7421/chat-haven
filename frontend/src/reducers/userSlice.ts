@@ -41,7 +41,7 @@ export const allUsersSlice = createSlice({
             //Updating active userList
             for (const data of action.payload.data){
                 const {username, user_id} = data;
-
+                state.usersList = [];
                 state.usersList.push({username: username, userId: user_id})
             }
         }

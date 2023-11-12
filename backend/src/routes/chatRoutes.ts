@@ -4,7 +4,7 @@ import { loginCheck } from '../middleware/auth';
 
 const chatRouter: Router = express.Router();
 
-chatRouter.get('/:chat_id', getChatById);
+chatRouter.post('/', getChatById);
 chatRouter.get('/chats', getChatsByIds);
 chatRouter.post('/create', createChat);
 chatRouter.post('/userNames', getChatsUserNames);
